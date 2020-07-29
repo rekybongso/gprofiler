@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="users"
+            type="me.rkyb.gprofiler.data.remote.response.ItemsResponse" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/spacing_medium"
+        android:layout_marginHorizontal="@dimen/spacing_small"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?selectableItemBackgroundBorderless"
+        app:cardCornerRadius="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_user_avatar"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/thumbnail_desc"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars"
+                imageUrl="@{users.userAvatar}"/>
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_large"
+                android:layout_marginTop="@dimen/spacing_middle"
+                android:text="@{users.userName}"
+                android:textStyle="bold"
+                android:textColor="@color/grey_900"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/img_user_avatar"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@tools:sample/first_names"/>
+            <TextView
+                android:id="@+id/tv_user_url"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_large"
+                android:layout_toEndOf="@id/img_user_avatar"
+                android:text="@{users.accountType}"
+                android:textColor="@color/grey_600"
+                android:drawableStart="@drawable/ic_acount_type"
+                android:drawablePadding="@dimen/spacing_medium"
+                android:textSize="20sp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                tools:text="@tools:sample/lorem"
+                app:layout_constraintStart_toEndOf="@id/img_user_avatar"
+                app:layout_constraintTop_toBottomOf="@id/tv_user_name" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

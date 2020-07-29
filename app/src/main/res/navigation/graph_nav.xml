@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/graph_nav"
+    app:startDestination="@id/nav_search">
+
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="me.rkyb.gprofiler.ui.main.fragments.SearchFragment"
+        android:label="@string/search_label"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/pass_result_to_profile"
+            app:destination="@id/nav_profile"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="me.rkyb.gprofiler.ui.main.fragments.SettingsFragment"
+        android:label="@string/settings_label"
+        tools:layout="@layout/fragment_settings"/>
+    <fragment
+        android:id="@+id/nav_about"
+        android:name="me.rkyb.gprofiler.ui.main.fragments.AboutFragment"
+        android:label="@string/about_label"
+        tools:layout="@layout/fragment_about"/>
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="me.rkyb.gprofiler.ui.main.fragments.ProfileFragment"
+        android:label="{username}"
+        tools:layout="@layout/fragment_profile">
+            <argument
+                android:name="username"
+                app:argType="string"
+                app:nullable="false"/>
+    </fragment>
+
+</navigation>

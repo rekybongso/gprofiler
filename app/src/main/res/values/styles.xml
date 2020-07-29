@@ -1,0 +1,12 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/grey_100</item>
+        <item name="colorPrimaryDark">@color/grey_600</item>
+        <item name="colorAccent">@color/teal_600</item>
+    </style>
+
+    <style name="AppTheme.DarkOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.LightOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+</resources>

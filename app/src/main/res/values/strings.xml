@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">GProfiler</string>
+    <string name="submission_version">Submission-02</string>
+
+    //Labels
+    <string name="about_label">About</string>
+    <string name="search_label">Search</string>
+    <string name="settings_label">Settings</string>
+    <string name="options_label">Options</string>
+
+    //Notifications
+    <string name="status_notice">Tap the search icon to start</string>
+    <string name="user_not_found_notice">Sorry, user not found</string>
+    <string name="no_connection_notice">OOPS… No internet connection</string>
+    <string name="error_notice">Something went wrong, please try again later</string>
+
+    //Placeholders
+    <string name="query_hint">Search GitHub Users</string>
+    <string name="thumbnail_desc">User\'s avatar</string>
+    <string name="follower_label">Followers</string>
+    <string name="following_label">Following</string>
+
+</resources>
