@@ -2,25 +2,25 @@ package me.rkyb.gprofiler.ui.viewmodels
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import me.rkyb.gprofiler.data.remote.response.ItemsResponse
-import me.rkyb.gprofiler.data.repository.UserSearchRepository
+import kotlinx.coroutines.*
+import me.rkyb.gprofiler.data.repository.SearchRepository
 import me.rkyb.gprofiler.utils.Resource
 
 class UserSearchViewModel @ViewModelInject constructor (
-    private val repo: UserSearchRepository)
+    private val repo: SearchRepository)
     : ViewModel() {
 
-    private val userName = MutableLiveData<String>()
+    private val username = MutableLiveData<String>()
 
-    var dataFetched: LiveData<Resource<MutableList<ItemsResponse>>> = Transformations
-        .switchMap(userName) {
-            repo.searchUsers(it)
+    var dataFetched = username.switchMap { users ->
+        liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            emit(repo.searchUsers(users))
         }
+    }
 
-    fun searchUsers(keyword: String? = null, getPopularUsers: Boolean = false) {
-        if (userName.value == keyword){
-            return
-        }
-        userName.value = keyword
+    fun searchUsers(keyword: String) {
+        if (username.value == keyword) return
+        username.value = keyword
     }
 }

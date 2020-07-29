@@ -7,17 +7,22 @@
     <string name="search_label">Search</string>
     <string name="settings_label">Settings</string>
     <string name="options_label">Options</string>
+    <string name="followers_label">Followers</string>
+    <string name="following_label">Following</string>
 
     //Notifications
     <string name="status_notice">Tap the search icon to start</string>
-    <string name="user_not_found_notice">Sorry, user not found</string>
-    <string name="no_connection_notice">OOPS… No internet connection</string>
-    <string name="error_notice">Something went wrong, please try again later</string>
+    <string name="user_not_found_notice">User not found</string>
+    <string name="no_connection_notice">No internet connection</string>
+    <string name="no_data_notice">Data not found</string>
+    <string name="error_notice">Something went wrong, please try again!</string>
+    <string name="timeout_notice">Request timeout</string>
+    <string name="unauthorised_notice">Unauthorised request</string>
+    <string name="server_not_found_notice">Server not found</string>
+    <string name="fetching_data_notice">Fetching data…</string>
 
     //Placeholders
     <string name="query_hint">Search GitHub Users</string>
     <string name="thumbnail_desc">User\'s avatar</string>
-    <string name="follower_label">Followers</string>
-    <string name="following_label">Following</string>
 
 </resources>

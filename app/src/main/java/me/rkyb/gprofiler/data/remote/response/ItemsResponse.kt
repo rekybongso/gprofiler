@@ -6,7 +6,7 @@ data class ItemsResponse (
     @field:Json(name = "id")
     val userId: Int?,
     @field:Json(name = "login")
-    val userName: String?,
+    val username: String?,
     @field:Json(name = "avatar_url")
     val userAvatar: String?,
     @field:Json(name = "type")

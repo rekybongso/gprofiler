@@ -1,24 +1,22 @@
 package me.rkyb.gprofiler.utils
 
+import me.rkyb.gprofiler.utils.enum.ResourceStatus
+import me.rkyb.gprofiler.utils.enum.ResourceStatus.*
 
-data class Resource <out T>(val status: Status, val data: T?, val msg: String?) {
-
-    enum class Status{
-        SUCCESS, ERROR, LOADING
-    }
+data class Resource <out T>(val status: ResourceStatus, val data: T?, val message: String?) {
 
     companion object {
 
         fun <T> success(data: T?): Resource<T> {
-            return Resource(Status.SUCCESS, data, null)
+            return Resource(SUCCESS, data, null)
         }
 
         fun <T> error(msg: String, data: T?): Resource<T> {
-            return Resource(Status.ERROR, data, msg)
+            return Resource(ERROR, data, msg)
         }
 
         fun <T> loading(data: T?): Resource<T> {
-            return Resource(Status.LOADING, data, null)
+            return Resource(LOADING, data, null)
         }
 
     }

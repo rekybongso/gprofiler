@@ -1,16 +1,16 @@
 package me.rkyb.gprofiler.ui.adapter
 
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.LayoutInflater
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import me.rkyb.gprofiler.data.remote.response.ItemsResponse
 import me.rkyb.gprofiler.databinding.RvListItemsBinding
 
-class UserSearchAdapter (private val listener: Listener)
-    : RecyclerView.Adapter<UserSearchAdapter.DataViewHolder>() {
+class MainRecyclerAdapter (private val listener: Listener)
+    : RecyclerView.Adapter<MainRecyclerAdapter.DataViewHolder>() {
 
     companion object {
         private val diffCallBack =

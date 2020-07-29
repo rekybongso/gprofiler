@@ -3,32 +3,38 @@ package me.rkyb.gprofiler.utils.extensions
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
-import coil.Coil
+import coil.api.load
 import coil.request.CachePolicy
-import coil.request.LoadRequest
+import coil.size.ViewSizeResolver
+import coil.transform.CircleCropTransformation
 import me.rkyb.gprofiler.R
+
+//Make circular progress as placeholder for image view
+fun makeCircularProgress (imageView: ImageView) =
+    CircularProgressDrawable(imageView.context).apply {
+        setColorSchemeColors(R.color.grey_700)
+        strokeWidth = 5f
+        centerRadius = 30f
+        start()
+    }
 
 // Load and bind image
 @BindingAdapter("imageUrl")
 fun ImageView.loadImage (url: String?) {
+    this.load(url){
+        diskCachePolicy(CachePolicy.ENABLED)
+        error(R.drawable.ic_error)
+        crossfade(true)
+    }
+}
 
-    val circularProgress =
-        CircularProgressDrawable(this.context).apply {
-            setColorSchemeColors(R.color.grey_600)
-            strokeWidth = 5f
-            centerRadius = 30f
-            start()
-        }
-
-    val imageLoader = Coil.imageLoader(this.context)
-    val imageRequest = LoadRequest.Builder(this.context)
-        .data(url)
-        .target(this)
-        .diskCachePolicy(CachePolicy.ENABLED)
-        .placeholder(circularProgress)
-        .error(R.drawable.ic_error)
-        .crossfade(true)
-        .build()
-
-    imageLoader.execute(imageRequest)
+// Load and bind as circular image
+@BindingAdapter("circleImage")
+fun ImageView.loadAsCircularImage(url: String?){
+    this.load(url){
+        diskCachePolicy(CachePolicy.ENABLED)
+        error(R.drawable.ic_error)
+        crossfade(true)
+        transformations(CircleCropTransformation())
+    }
 }

@@ -8,7 +8,7 @@ object Constants {
     const val GIT_PERSONAL_TOKEN = "ccc2a5741b024e81c6683df3217c50fea3bc552c"
 
     // Bundle
-    const val FRAGMENT_TYPE = "fragment_key"
+    const val FRAGMENT_FOLLOW_TYPE = "fragment_key"
     const val FRAGMENT_USERNAME = "fragment_username"
 
 }

@@ -12,48 +12,65 @@ import dagger.hilt.android.AndroidEntryPoint
 import me.rkyb.gprofiler.R
 import me.rkyb.gprofiler.ui.base.BaseFragment
 import me.rkyb.gprofiler.databinding.FragmentSearchBinding
-import me.rkyb.gprofiler.ui.adapter.UserSearchAdapter
+import me.rkyb.gprofiler.ui.adapter.MainRecyclerAdapter
 import me.rkyb.gprofiler.ui.viewmodels.UserSearchViewModel
 import me.rkyb.gprofiler.data.remote.response.ItemsResponse
+import me.rkyb.gprofiler.data.remote.response.UserSearchResponse
 import me.rkyb.gprofiler.utils.NetworkCheck
-import me.rkyb.gprofiler.utils.Resource.Status.*
-import me.rkyb.gprofiler.utils.extensions.ViewExt.doNavigate
-import me.rkyb.gprofiler.utils.extensions.SearchExt.onError
-import me.rkyb.gprofiler.utils.extensions.SearchExt.onSuccess
-import me.rkyb.gprofiler.utils.extensions.SearchExt.onLoading
+import me.rkyb.gprofiler.utils.Resource
+import me.rkyb.gprofiler.utils.enum.ResourceStatus.*
+import me.rkyb.gprofiler.utils.extensions.doNavigate
+import me.rkyb.gprofiler.utils.extensions.onError
+import me.rkyb.gprofiler.utils.extensions.onSuccess
+import me.rkyb.gprofiler.utils.extensions.onLoading
 
 @AndroidEntryPoint
-class SearchFragment : BaseFragment<FragmentSearchBinding>(), UserSearchAdapter.Listener {
+class SearchFragment : BaseFragment<FragmentSearchBinding>(), MainRecyclerAdapter.Listener {
 
     /*  I'm using navGraphViewModels with defaultViewModelProviderFactory to keep
         fragment state across all navigation components. This method work with Hilt. */
 
-    private val viewModel: UserSearchViewModel by navGraphViewModels(R.id.graph_nav) {
+    private val searchViewModel: UserSearchViewModel by navGraphViewModels(R.id.graph_nav) {
         defaultViewModelProviderFactory }
 
     private val networkCheck by lazy { NetworkCheck(requireContext()) }
-    private val searchAdapter by lazy { UserSearchAdapter(this) }
+    private val searchAdapter by lazy { MainRecyclerAdapter(this) }
 
     private lateinit var searchItem: MenuItem
     private lateinit var searchView: SearchView
+
+    private val observer = Observer<Resource<UserSearchResponse>> { resource ->
+        when (resource.status) {
+            SUCCESS -> {
+                if (resource.data?.items.isNullOrEmpty()) {
+                    fBinding.onError(null)
+                } else {
+                    resource.data?.items?.let { users -> searchAdapter.renderList(users) }
+                    fBinding.onSuccess()
+                }
+            }
+            LOADING -> fBinding.onLoading()
+            ERROR -> fBinding.onError(resource.message)
+        }
+    }
 
     override var layoutId: Int = R.layout.fragment_search
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupAdapter()
-        setupObserver()
+        fBinding.rvUserList.adapter = searchAdapter
+        searchViewModel.dataFetched.observe(viewLifecycleOwner, observer)
+
         setHasOptionsMenu(true)
 
     }
 
     override fun onItemClick(view: View, data: ItemsResponse) {
-        val directions = data.userName?.let {
+        val directions = data.username?.let {
             SearchFragmentDirections.passResultToProfile(it)
         }
 
-        //The doNavigate extension can be found on ViewExt.kt
         directions?.let { view.doNavigate(it) }
     }
 
@@ -80,11 +97,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), UserSearchAdapter.
                     clearFocus()
                     searchItem.collapseActionView()
 
-                    if (networkCheck.isAvailable()) {
-                        query?.let { viewModel.searchUsers(it) }
-                    } else {
-                        fBinding.onError(context.getString(R.string.no_connection_notice))
-                    }
+                    query?.let { searchViewModel.searchUsers(it) }
 
                     return true
                 }
@@ -92,30 +105,5 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), UserSearchAdapter.
                 override fun onQueryTextChange(query: String?): Boolean = false
             })
         }
-    }
-
-    private fun setupObserver() {
-        viewModel.dataFetched.observe(viewLifecycleOwner, Observer {
-            it?.let { resource ->
-                when (resource.status){
-                    SUCCESS -> {
-                        resource.data?.let { users ->
-                            if (users.isNullOrEmpty()) {
-                                fBinding.onError(null)
-                            } else {
-                                searchAdapter.renderList(users)
-                                fBinding.onSuccess()
-                            }
-                        }
-                    }
-                    LOADING -> { fBinding.onLoading() }
-                    ERROR -> { it.msg ?: resources.getString(R.string.error_notice) }
-                }
-            }
-        })
-    }
-
-    private fun setupAdapter() {
-        fBinding.rvUserList.adapter = searchAdapter
     }
 }

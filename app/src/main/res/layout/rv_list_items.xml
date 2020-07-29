@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View"/>
         <variable
             name="users"
             type="me.rkyb.gprofiler.data.remote.response.ItemsResponse" />
@@ -42,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_large"
                 android:layout_marginTop="@dimen/spacing_middle"
-                android:text="@{users.userName}"
+                android:text="@{users.username}"
                 android:textStyle="bold"
                 android:textColor="@color/grey_900"
                 android:textSize="20sp"
@@ -56,7 +55,7 @@
                 android:layout_marginStart="@dimen/spacing_large"
                 android:layout_toEndOf="@id/img_user_avatar"
                 android:text="@{users.accountType}"
-                android:textColor="@color/grey_600"
+                android:textColor="@color/grey_700"
                 android:drawableStart="@drawable/ic_acount_type"
                 android:drawablePadding="@dimen/spacing_medium"
                 android:textSize="20sp"

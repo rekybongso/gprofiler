@@ -15,7 +15,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
-
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -24,8 +23,7 @@
                 app:title="@string/app_name"
                 app:titleTextColor="@color/grey_900"
                 app:popupTheme="@style/AppTheme.DarkOverlay"
-                app:theme="@style/AppTheme.LightOverlay"
-                app:elevation="4dp"/>
+                app:theme="@style/AppTheme.LightOverlay"/>
 
         </com.google.android.material.appbar.AppBarLayout>
 

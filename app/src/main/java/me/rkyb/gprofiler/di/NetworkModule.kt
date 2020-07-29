@@ -1,21 +1,25 @@
 package me.rkyb.gprofiler.di
 
+import android.content.Context
 import javax.inject.Singleton
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
+import me.rkyb.gprofiler.data.remote.source.UserService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
-import me.rkyb.gprofiler.data.remote.source.UserSearchService
+import me.rkyb.gprofiler.data.remote.source.SearchService
 import me.rkyb.gprofiler.utils.Constants
+import me.rkyb.gprofiler.utils.ResponseHandler
 
 @Module
 @InstallIn(ApplicationComponent::class)
-class NetworkModule {
+object NetworkModule {
 
     /* The Github base url and personal token can be found on
        Constants.kt at utils package. */
@@ -30,7 +34,7 @@ class NetworkModule {
             .addInterceptor{ chain ->
                 val request = chain.request()
                     .newBuilder()
-                    .addHeader("Authorization", Constants.GIT_PERSONAL_TOKEN)
+                    .header("Authorization", Constants.GIT_PERSONAL_TOKEN)
                     .build()
                 chain.proceed(request)
             }
@@ -52,8 +56,20 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideUserSearchService(retrofit: Retrofit): UserSearchService {
-        return retrofit.create(UserSearchService::class.java)
+    fun provideSearchService(retrofit: Retrofit): SearchService {
+        return retrofit.create(SearchService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserService(retrofit: Retrofit): UserService {
+        return retrofit.create(UserService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideResponseHandler(@ApplicationContext context: Context): ResponseHandler {
+        return ResponseHandler(context)
     }
 
 }

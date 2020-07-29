@@ -16,12 +16,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setupUI()
-
-    }
-
-    private fun setupUI(){
-
         /*  The navController, navHostFragment, and appBarConfiguration
             has been late initiated on the base activity. */
 
@@ -32,13 +26,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         setSupportActionBar(toolbar)
 
         appBarConfiguration = AppBarConfiguration.Builder(
-                              R.id.nav_search, R.id.nav_settings,
-                              R.id.nav_about, R.id.nav_profile)
-                              .setOpenableLayout(drawerLayout) //setDrawerLayout has been deprecated
-                              .build()
+            R.id.nav_search, R.id.nav_settings,
+            R.id.nav_about, R.id.nav_profile)
+            .setOpenableLayout(drawerLayout) //setDrawerLayout has been deprecated
+            .build()
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navigationView.setupWithNavController(navController)
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
