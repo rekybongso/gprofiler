@@ -5,7 +5,7 @@ object Constants {
     const val GIT_BASE_URL = "https://api.github.com"
 
     // Github personal token
-    const val GIT_PERSONAL_TOKEN = "ccc2a5741b024e81c6683df3217c50fea3bc552c"
+    const val GIT_PERSONAL_TOKEN = "ADD YOUR PERSONAL TOKEN HERE"
 
     // Bundle
     const val FRAGMENT_FOLLOW_TYPE = "fragment_key"
