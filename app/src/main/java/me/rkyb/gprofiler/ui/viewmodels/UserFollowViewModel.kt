@@ -8,7 +8,7 @@ import androidx.lifecycle.switchMap
 import kotlinx.coroutines.Dispatchers
 import me.rkyb.gprofiler.data.repository.FollowRepository
 import me.rkyb.gprofiler.utils.enum.FollowType
-import me.rkyb.gprofiler.utils.enum.FollowType.*
+import me.rkyb.gprofiler.utils.enum.FollowType.FOLLOWERS
 
 class UserFollowViewModel @ViewModelInject constructor(
     private val repo: FollowRepository): ViewModel() {
@@ -19,11 +19,13 @@ class UserFollowViewModel @ViewModelInject constructor(
 
     val getFollowData = username.switchMap { user ->
         liveData(Dispatchers.IO){
-            when (type) {
-                FOLLOWERS -> emit(repo.geUserFollowers(user))
-                FOLLOWING -> emit(repo.geUserFollowing(user))
+            if (type == FOLLOWERS){
+                emit(repo.geUserFollowers(user))
+            } else {
+                emit(repo.geUserFollowing(user))
             }
         }
+
     }
 
     fun setFollowData (user: String, followType: FollowType) {

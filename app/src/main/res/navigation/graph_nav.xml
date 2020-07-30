@@ -34,10 +34,17 @@
         android:name="me.rkyb.gprofiler.ui.main.fragments.ProfileFragment"
         android:label="{username}"
         tools:layout="@layout/fragment_profile">
-            <argument
-                android:name="username"
-                app:argType="string"
-                app:nullable="false"/>
+        <argument
+            android:name="username"
+            app:argType="string"
+            app:nullable="false"/>
+        <action
+            android:id="@+id/action_nav_profile_self"
+            app:destination="@id/nav_profile"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
 </navigation>

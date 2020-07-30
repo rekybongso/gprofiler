@@ -8,22 +8,19 @@ fun FragmentFollowBinding.onSuccess() {
     this.apply {
         rvFollowList.show()
         tvStatusNotice.hide()
-        progressBar.hide()
     }
 }
 
 fun FragmentFollowBinding.onLoading() {
     this.apply {
         rvFollowList.hide()
-        tvStatusNotice.hide()
-        progressBar.show()
+        tvStatusNotice.show()
     }
 }
 
 fun FragmentFollowBinding.onError(message: String?){
     this.apply {
         rvFollowList.hide()
-        progressBar.hide()
         tvStatusNotice.apply {
             show()
             text = message ?: resources.getString(R.string.no_data_notice)

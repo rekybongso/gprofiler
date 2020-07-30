@@ -3,7 +3,6 @@ package me.rkyb.gprofiler.ui.main.fragments
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.*
@@ -15,9 +14,6 @@ import me.rkyb.gprofiler.databinding.FragmentSearchBinding
 import me.rkyb.gprofiler.ui.adapter.MainRecyclerAdapter
 import me.rkyb.gprofiler.ui.viewmodels.UserSearchViewModel
 import me.rkyb.gprofiler.data.remote.response.ItemsResponse
-import me.rkyb.gprofiler.data.remote.response.UserSearchResponse
-import me.rkyb.gprofiler.utils.NetworkCheck
-import me.rkyb.gprofiler.utils.Resource
 import me.rkyb.gprofiler.utils.enum.ResourceStatus.*
 import me.rkyb.gprofiler.utils.extensions.doNavigate
 import me.rkyb.gprofiler.utils.extensions.onError
@@ -33,26 +29,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), MainRecyclerAdapte
     private val searchViewModel: UserSearchViewModel by navGraphViewModels(R.id.graph_nav) {
         defaultViewModelProviderFactory }
 
-    private val networkCheck by lazy { NetworkCheck(requireContext()) }
     private val searchAdapter by lazy { MainRecyclerAdapter(this) }
-
-    private lateinit var searchItem: MenuItem
-    private lateinit var searchView: SearchView
-
-    private val observer = Observer<Resource<UserSearchResponse>> { resource ->
-        when (resource.status) {
-            SUCCESS -> {
-                if (resource.data?.items.isNullOrEmpty()) {
-                    fBinding.onError(null)
-                } else {
-                    resource.data?.items?.let { users -> searchAdapter.renderList(users) }
-                    fBinding.onSuccess()
-                }
-            }
-            LOADING -> fBinding.onLoading()
-            ERROR -> fBinding.onError(resource.message)
-        }
-    }
 
     override var layoutId: Int = R.layout.fragment_search
 
@@ -60,9 +37,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), MainRecyclerAdapte
         super.onViewCreated(view, savedInstanceState)
 
         fBinding.rvUserList.adapter = searchAdapter
-        searchViewModel.dataFetched.observe(viewLifecycleOwner, observer)
 
         setHasOptionsMenu(true)
+        observeFetchedUser()
 
     }
 
@@ -74,19 +51,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), MainRecyclerAdapte
         directions?.let { view.doNavigate(it) }
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (!networkCheck.isAvailable()){
-            fBinding.onError(context?.getString(R.string.no_connection_notice))
-        }
-    }
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
 
         inflater.inflate(R.menu.search_item_menu, menu)
 
-        searchItem = menu.findItem(R.id.search_user)
+        val searchView: SearchView
+        val searchItem = menu.findItem(R.id.search_user)
+
         searchView = searchItem.actionView as SearchView
 
         searchView.run {
@@ -105,5 +77,22 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), MainRecyclerAdapte
                 override fun onQueryTextChange(query: String?): Boolean = false
             })
         }
+    }
+
+    private fun observeFetchedUser() {
+        searchViewModel.dataFetched.observe(viewLifecycleOwner, Observer { resource ->
+            when (resource.status) {
+                SUCCESS -> {
+                    if (resource.data?.items.isNullOrEmpty()) {
+                        fBinding.onError(null)
+                    } else {
+                        resource.data?.items?.let { users -> searchAdapter.renderList(users) }
+                        fBinding.onSuccess()
+                    }
+                }
+                LOADING -> fBinding.onLoading()
+                ERROR -> fBinding.onError(resource.message)
+            }
+        })
     }
 }

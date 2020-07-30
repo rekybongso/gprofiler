@@ -5,6 +5,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import me.rkyb.gprofiler.R
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 class ResponseHandler @Inject constructor (
@@ -20,6 +21,7 @@ class ResponseHandler @Inject constructor (
 
     fun <T : Any> handleException(e: Exception): Resource<T> {
         return when (e) {
+            is UnknownHostException -> Resource.error("Unable to resolve host",null)
             is HttpException -> Resource.error(getErrorMessage(e.code()), null)
             is SocketTimeoutException -> Resource.error(getErrorMessage(ErrorCodes.SocketTimeOut.code), null)
             else -> Resource.error(getErrorMessage(Int.MAX_VALUE), null)

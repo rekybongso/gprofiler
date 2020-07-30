@@ -14,68 +14,86 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:fitsSystemWindows="true">
 
-            <LinearLayout
-                android:id="@+id/linear_layout"
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/grey_100"
-                android:orientation="vertical"
-                android:paddingStart="@dimen/spacing_middle"
-                android:paddingEnd="@dimen/spacing_middle"
-                android:paddingTop="@dimen/spacing_middle"
-                android:paddingBottom="@dimen/spacing_middle"
-                android:gravity="center"
-                app:layout_scrollFlags="scroll|snap">
-                <ImageView
-                    android:contentDescription="@string/thumbnail_desc"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    tools:srcCompat="@tools:sample/avatars"
-                    circleImage="@{userdata.userAvatarUrl}"/>
-                <TextView
-                    android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways">
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:textColor="@color/grey_900"
-                    android:text="@{userdata.userFullName??userdata.username}"
-                    tools:text="@tools:sample/full_names"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/spacing_medium"
-                    android:drawableStart="@drawable/ic_location"
-                    android:drawablePadding="@dimen/spacing_small"
-                    android:textSize="16sp"
-                    android:textColor="@color/grey_700"
-                    android:text="@{userdata.userLocation}"
-                    android:visibility="@{userdata.userLocation != null? View.VISIBLE: View.GONE}"
-                    tools:text="@tools:sample/cities"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/spacing_medium"
-                    android:drawableStart="@drawable/ic_company"
-                    android:drawablePadding="@dimen/spacing_small"
-                    android:textSize="16sp"
-                    android:textColor="@color/grey_700"
-                    android:text="@{userdata.userCompany}"
-                    android:visibility="@{userdata.userCompany != null? View.VISIBLE: View.GONE}"
-                    tools:text="@tools:sample/lorem"/>
-            </LinearLayout>
+                    android:background="@color/grey_100"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    <ImageView
+                        android:contentDescription="@string/thumbnail_desc"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginTop="@dimen/spacing_large"
+                        tools:srcCompat="@tools:sample/avatars"
+                        circleImage="@{userdata.userAvatarUrl}"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                        android:textColor="@color/grey_900"
+                        android:text="@{userdata.userFullName??userdata.username}"
+                        tools:text="@tools:sample/full_names"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/spacing_medium"
+                        android:drawableStart="@drawable/ic_location"
+                        android:drawablePadding="@dimen/spacing_small"
+                        android:textSize="16sp"
+                        android:textColor="@color/grey_700"
+                        android:text="@{userdata.userLocation}"
+                        android:visibility="@{userdata.userLocation != null? View.VISIBLE: View.GONE}"
+                        tools:text="@tools:sample/cities"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/spacing_medium"
+                        android:drawableStart="@drawable/ic_company"
+                        android:drawablePadding="@dimen/spacing_small"
+                        android:textSize="16sp"
+                        android:textColor="@color/grey_700"
+                        android:text="@{userdata.userCompany}"
+                        android:visibility="@{userdata.userCompany != null? View.VISIBLE: View.GONE}"
+                        tools:text="@tools:sample/lorem"/>
+                </LinearLayout>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/grey_50"
-                app:tabTextColor="@color/grey_900"
+                android:background="@color/grey_100"
+                app:tabIndicatorColor="@color/teal_600"
+                app:tabTextColor="@color/tab_item_color_selector"
                 app:tabRippleColor="@color/teal_600"/>
-
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+
+        </LinearLayout>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </layout>

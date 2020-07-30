@@ -18,6 +18,7 @@ import me.rkyb.gprofiler.utils.extensions.onLoading
 import me.rkyb.gprofiler.utils.extensions.onSuccess
 import me.rkyb.gprofiler.utils.Constants.FRAGMENT_FOLLOW_TYPE
 import me.rkyb.gprofiler.utils.Constants.FRAGMENT_USERNAME
+import me.rkyb.gprofiler.utils.extensions.doNavigate
 
 @AndroidEntryPoint
 class FollowFragment : BaseFragment<FragmentFollowBinding>(), MainRecyclerAdapter.Listener {
@@ -47,6 +48,7 @@ class FollowFragment : BaseFragment<FragmentFollowBinding>(), MainRecyclerAdapte
             username = it.getString(FRAGMENT_USERNAME).toString()
             followType = it.getString(FRAGMENT_FOLLOW_TYPE)
         }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,21 +56,20 @@ class FollowFragment : BaseFragment<FragmentFollowBinding>(), MainRecyclerAdapte
 
         fBinding.rvFollowList.adapter = followAdapter
 
-        when (followType) {
-            resources.getString(R.string.followers_label) -> {
-                followViewModel.setFollowData(username, FOLLOWERS)
-            }
-            resources.getString(R.string.following_label) -> {
-                followViewModel.setFollowData(username, FOLLOWING)
-            }
-            else -> fBinding.onError(null)
+        if (followType == resources.getString(R.string.followers_label)) {
+            followViewModel.setFollowData(username, FOLLOWERS)
+        } else {
+            followViewModel.setFollowData(username, FOLLOWING)
         }
 
         observerFollowData()
     }
 
     override fun onItemClick(view: View, data: ItemsResponse) {
-        //TODO("Not yet implemented")
+        val direction = data.username?.let {
+            ProfileFragmentDirections.actionNavProfileSelf(it) }
+
+        direction?.let { view.doNavigate(it) }
     }
 
     private fun observerFollowData(){
@@ -87,4 +88,5 @@ class FollowFragment : BaseFragment<FragmentFollowBinding>(), MainRecyclerAdapte
             }
         })
     }
+
 }

@@ -15,7 +15,7 @@
     <string name="user_not_found_notice">User not found</string>
     <string name="no_connection_notice">No internet connection</string>
     <string name="no_data_notice">Data not found</string>
-    <string name="error_notice">Something went wrong, please try again!</string>
+    <string name="error_notice">Something went wrong</string>
     <string name="timeout_notice">Request timeout</string>
     <string name="unauthorised_notice">Unauthorised request</string>
     <string name="server_not_found_notice">Server not found</string>

@@ -5,24 +5,22 @@ import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import coil.api.load
 import coil.request.CachePolicy
-import coil.size.ViewSizeResolver
 import coil.transform.CircleCropTransformation
 import me.rkyb.gprofiler.R
 
-//Make circular progress as placeholder for image view
-fun makeCircularProgress (imageView: ImageView) =
-    CircularProgressDrawable(imageView.context).apply {
+// Load and bind image
+@BindingAdapter("imageUrl")
+fun ImageView.loadImage (url: String?) {
+    val circleProgressDrawable = CircularProgressDrawable(context).apply {
         setColorSchemeColors(R.color.grey_700)
         strokeWidth = 5f
         centerRadius = 30f
         start()
     }
 
-// Load and bind image
-@BindingAdapter("imageUrl")
-fun ImageView.loadImage (url: String?) {
     this.load(url){
         diskCachePolicy(CachePolicy.ENABLED)
+        placeholder(circleProgressDrawable)
         error(R.drawable.ic_error)
         crossfade(true)
     }
@@ -38,3 +36,5 @@ fun ImageView.loadAsCircularImage(url: String?){
         transformations(CircleCropTransformation())
     }
 }
+
+
