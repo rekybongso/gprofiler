@@ -9,7 +9,7 @@ import me.rkyb.gprofiler.data.remote.response.UserProfileResponse
 import me.rkyb.gprofiler.data.repository.ProfileRepository
 import me.rkyb.gprofiler.utils.Resource
 
-class UserProfileViewModel @ViewModelInject constructor (
+class ProfileViewModel @ViewModelInject constructor (
     private val repo: ProfileRepository
 ): ViewModel() {
 

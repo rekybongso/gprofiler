@@ -10,15 +10,16 @@ import me.rkyb.gprofiler.data.remote.response.ItemsResponse
 import me.rkyb.gprofiler.databinding.FragmentFollowBinding
 import me.rkyb.gprofiler.ui.adapter.MainRecyclerAdapter
 import me.rkyb.gprofiler.ui.base.BaseFragment
-import me.rkyb.gprofiler.ui.viewmodels.UserFollowViewModel
-import me.rkyb.gprofiler.utils.enum.FollowType.*
+import me.rkyb.gprofiler.ui.viewmodels.FollowViewModel
+import me.rkyb.gprofiler.utils.Constants.FRAGMENT_FOLLOW_TYPE
+import me.rkyb.gprofiler.utils.Constants.FRAGMENT_USERNAME
+import me.rkyb.gprofiler.utils.enum.FollowType.FOLLOWERS
+import me.rkyb.gprofiler.utils.enum.FollowType.FOLLOWING
 import me.rkyb.gprofiler.utils.enum.ResourceStatus.*
+import me.rkyb.gprofiler.utils.extensions.doNavigate
 import me.rkyb.gprofiler.utils.extensions.onError
 import me.rkyb.gprofiler.utils.extensions.onLoading
 import me.rkyb.gprofiler.utils.extensions.onSuccess
-import me.rkyb.gprofiler.utils.Constants.FRAGMENT_FOLLOW_TYPE
-import me.rkyb.gprofiler.utils.Constants.FRAGMENT_USERNAME
-import me.rkyb.gprofiler.utils.extensions.doNavigate
 
 @AndroidEntryPoint
 class FollowFragment : BaseFragment<FragmentFollowBinding>(), MainRecyclerAdapter.Listener {
@@ -27,8 +28,14 @@ class FollowFragment : BaseFragment<FragmentFollowBinding>(), MainRecyclerAdapte
         fun newInstance(userName: String, followType: String): FollowFragment {
             return FollowFragment().apply {
                 arguments = Bundle().apply {
+
+                    /* Bundle the username and follow type which needed to create
+                       new instance of FollowFragment and share its data */
+
                     putString(FRAGMENT_USERNAME, userName)
-                    putString(FRAGMENT_FOLLOW_TYPE, followType) }
+                    putString(FRAGMENT_FOLLOW_TYPE, followType)
+
+                }
             }
         }
     }
@@ -36,7 +43,7 @@ class FollowFragment : BaseFragment<FragmentFollowBinding>(), MainRecyclerAdapte
     private lateinit var username: String
     private var followType: String? = null
 
-    private val followViewModel: UserFollowViewModel by viewModels()
+    private val followViewModel: FollowViewModel by viewModels()
     private val followAdapter by lazy { MainRecyclerAdapter(this) }
 
     override var layoutId: Int = R.layout.fragment_follow
@@ -44,6 +51,7 @@ class FollowFragment : BaseFragment<FragmentFollowBinding>(), MainRecyclerAdapte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //Catch the data bundle and pass it into the variables
         arguments?.let {
             username = it.getString(FRAGMENT_USERNAME).toString()
             followType = it.getString(FRAGMENT_FOLLOW_TYPE)
@@ -66,10 +74,14 @@ class FollowFragment : BaseFragment<FragmentFollowBinding>(), MainRecyclerAdapte
     }
 
     override fun onItemClick(view: View, data: ItemsResponse) {
+
+        //Get detail of user's following or follower
+
         val direction = data.username?.let {
             ProfileFragmentDirections.actionNavProfileSelf(it) }
 
         direction?.let { view.doNavigate(it) }
+
     }
 
     private fun observerFollowData(){

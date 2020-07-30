@@ -8,6 +8,8 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.inject.Inject
 
+// A class to handle response from api call
+
 class ResponseHandler @Inject constructor (
     @ApplicationContext private val context: Context){
 
@@ -21,7 +23,7 @@ class ResponseHandler @Inject constructor (
 
     fun <T : Any> handleException(e: Exception): Resource<T> {
         return when (e) {
-            is UnknownHostException -> Resource.error("Unable to resolve host",null)
+            is UnknownHostException -> Resource.error(context.getString(R.string.host_notice),null)
             is HttpException -> Resource.error(getErrorMessage(e.code()), null)
             is SocketTimeoutException -> Resource.error(getErrorMessage(ErrorCodes.SocketTimeOut.code), null)
             else -> Resource.error(getErrorMessage(Int.MAX_VALUE), null)

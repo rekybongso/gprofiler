@@ -10,7 +10,7 @@ import me.rkyb.gprofiler.data.repository.FollowRepository
 import me.rkyb.gprofiler.utils.enum.FollowType
 import me.rkyb.gprofiler.utils.enum.FollowType.FOLLOWERS
 
-class UserFollowViewModel @ViewModelInject constructor(
+class FollowViewModel @ViewModelInject constructor(
     private val repo: FollowRepository): ViewModel() {
 
     private val username = MutableLiveData<String>()

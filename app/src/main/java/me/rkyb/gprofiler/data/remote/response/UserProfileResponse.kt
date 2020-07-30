@@ -1,10 +1,7 @@
 package me.rkyb.gprofiler.data.remote.response
 
-import android.os.Parcelable
 import com.squareup.moshi.Json
-import kotlinx.android.parcel.Parcelize
 
-@Parcelize
 data class UserProfileResponse(
     @field:Json(name = "avatar_url")
     val userAvatarUrl: String?,
@@ -24,4 +21,4 @@ data class UserProfileResponse(
     val userFullName: String?,
     @field:Json(name = "login")
     val username: String?
-): Parcelable
+)

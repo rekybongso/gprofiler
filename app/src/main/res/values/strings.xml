@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">GProfiler</string>
-    <string name="submission_version">Submission-02</string>
+    <string name="app_name" translatable="false">GProfiler</string>
+    <string name="submission_version" translatable="false">Submission-02</string>
 
     //Labels
     <string name="about_label">About</string>
@@ -9,20 +9,23 @@
     <string name="options_label">Options</string>
     <string name="followers_label">Followers</string>
     <string name="following_label">Following</string>
+    <string name="language">Language</string>
+    <string name="app_logo_desc">Application\'s logo</string>
 
     //Notifications
     <string name="status_notice">Tap the search icon to start</string>
     <string name="user_not_found_notice">User not found</string>
-    <string name="no_connection_notice">No internet connection</string>
     <string name="no_data_notice">Data not found</string>
     <string name="error_notice">Something went wrong</string>
     <string name="timeout_notice">Request timeout</string>
     <string name="unauthorised_notice">Unauthorised request</string>
     <string name="server_not_found_notice">Server not found</string>
     <string name="fetching_data_notice">Fetching data…</string>
+    <string name="host_notice">Unable to resolve host</string>
 
     //Placeholders
     <string name="query_hint">Search GitHub Users</string>
     <string name="thumbnail_desc">User\'s avatar</string>
-
+    <string name="language_summary">Change Language</string>
+    <string name="app_desc">A simple app to search GitHub user\nCreated by Reky Bongso</string>
 </resources>

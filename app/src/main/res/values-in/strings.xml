@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    //Labels
+    <string name="about_label">Tentang</string>
+    <string name="search_label">Cari</string>
+    <string name="settings_label">Pengaturan</string>
+    <string name="options_label">Opsi</string>
+    <string name="followers_label">Pengikut</string>
+    <string name="following_label">Mengikuti</string>
+    <string name="language">Bahasa</string>
+    <string name="app_logo_desc">Logo aplikasi</string>
+
+    //Notifications
+    <string name="status_notice">Ketuk ikon pencarian untuk memulai</string>
+    <string name="user_not_found_notice">Pengguna tidak ditemukan</string>
+    <string name="no_data_notice">Data tidak ditemukan</string>
+    <string name="error_notice">Terjadi kesalahan</string>
+    <string name="timeout_notice">Permintaan melampaui batas waktu</string>
+    <string name="unauthorised_notice">Permintaan tidak terautentikasi</string>
+    <string name="server_not_found_notice">Server tidak ditemukan</string>
+    <string name="fetching_data_notice">Mengambil data…</string>
+    <string name="host_notice">Tidak dapat menemukan host</string>
+
+    //Placeholders
+    <string name="query_hint">Cari pengguna GitHub</string>
+    <string name="thumbnail_desc">Foto profil pengguna</string>
+    <string name="language_summary">Ganti bahasa</string>
+    <string name="app_desc">Aplikasi sederhana untuk mencari pengguna GitHub\nDibuat oleh Reky Bongso</string>
+</resources>

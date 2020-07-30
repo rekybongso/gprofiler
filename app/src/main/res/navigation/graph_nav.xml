@@ -22,8 +22,7 @@
     <fragment
         android:id="@+id/nav_settings"
         android:name="me.rkyb.gprofiler.ui.main.fragments.SettingsFragment"
-        android:label="@string/settings_label"
-        tools:layout="@layout/fragment_settings"/>
+        android:label="@string/settings_label"/>
     <fragment
         android:id="@+id/nav_about"
         android:name="me.rkyb.gprofiler.ui.main.fragments.AboutFragment"

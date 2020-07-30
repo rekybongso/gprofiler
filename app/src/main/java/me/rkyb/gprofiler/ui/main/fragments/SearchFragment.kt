@@ -5,20 +5,20 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.*
+import androidx.lifecycle.Observer
 import androidx.navigation.navGraphViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import me.rkyb.gprofiler.R
-import me.rkyb.gprofiler.ui.base.BaseFragment
+import me.rkyb.gprofiler.data.remote.response.ItemsResponse
 import me.rkyb.gprofiler.databinding.FragmentSearchBinding
 import me.rkyb.gprofiler.ui.adapter.MainRecyclerAdapter
-import me.rkyb.gprofiler.ui.viewmodels.UserSearchViewModel
-import me.rkyb.gprofiler.data.remote.response.ItemsResponse
+import me.rkyb.gprofiler.ui.base.BaseFragment
+import me.rkyb.gprofiler.ui.viewmodels.SearchViewModel
 import me.rkyb.gprofiler.utils.enum.ResourceStatus.*
 import me.rkyb.gprofiler.utils.extensions.doNavigate
 import me.rkyb.gprofiler.utils.extensions.onError
-import me.rkyb.gprofiler.utils.extensions.onSuccess
 import me.rkyb.gprofiler.utils.extensions.onLoading
+import me.rkyb.gprofiler.utils.extensions.onSuccess
 
 @AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>(), MainRecyclerAdapter.Listener {
@@ -26,7 +26,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), MainRecyclerAdapte
     /*  I'm using navGraphViewModels with defaultViewModelProviderFactory to keep
         fragment state across all navigation components. This method work with Hilt. */
 
-    private val searchViewModel: UserSearchViewModel by navGraphViewModels(R.id.graph_nav) {
+    private val searchViewModel: SearchViewModel by navGraphViewModels(R.id.graph_nav) {
         defaultViewModelProviderFactory }
 
     private val searchAdapter by lazy { MainRecyclerAdapter(this) }

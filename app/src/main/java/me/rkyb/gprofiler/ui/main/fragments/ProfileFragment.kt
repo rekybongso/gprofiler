@@ -12,15 +12,16 @@ import me.rkyb.gprofiler.data.remote.response.UserProfileResponse
 import me.rkyb.gprofiler.databinding.FragmentProfileBinding
 import me.rkyb.gprofiler.ui.adapter.ProfilePagerAdapter
 import me.rkyb.gprofiler.ui.base.BaseFragment
-import me.rkyb.gprofiler.ui.viewmodels.UserProfileViewModel
+import me.rkyb.gprofiler.ui.viewmodels.ProfileViewModel
 import me.rkyb.gprofiler.utils.Resource
 import me.rkyb.gprofiler.utils.enum.ResourceStatus.SUCCESS
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
+    //navArgs used to pass data between fragment within the navigation components
     private val args by navArgs<ProfileFragmentArgs>()
-    private val profileViewModel: UserProfileViewModel by viewModels()
+    private val profileViewModel: ProfileViewModel by viewModels()
 
     private val observer = Observer<Resource<UserProfileResponse>> {
         if (it.status == SUCCESS) fBinding.userdata = it.data }
@@ -47,8 +48,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             getUserData(args.username)
             usersFetched.observe(viewLifecycleOwner, observer)
         }
-
-        fBinding.lifecycleOwner = viewLifecycleOwner
     }
 
 }

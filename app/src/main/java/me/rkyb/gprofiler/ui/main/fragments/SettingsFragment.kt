@@ -1,13 +1,15 @@
 package me.rkyb.gprofiler.ui.main.fragments
 
+import android.os.Bundle
+import androidx.preference.PreferenceFragmentCompat
 import dagger.hilt.android.AndroidEntryPoint
 import me.rkyb.gprofiler.R
-import me.rkyb.gprofiler.databinding.FragmentSettingsBinding
-import me.rkyb.gprofiler.ui.base.BaseFragment
 
 @AndroidEntryPoint
-class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
+class SettingsFragment : PreferenceFragmentCompat() {
 
-    override var layoutId: Int = R.layout.fragment_settings
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        setPreferencesFromResource(R.xml.fragment_settings, rootKey)
+    }
 
 }
