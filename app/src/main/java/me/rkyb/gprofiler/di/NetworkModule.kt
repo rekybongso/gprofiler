@@ -1,21 +1,21 @@
 package me.rkyb.gprofiler.di
 
 import android.content.Context
-import javax.inject.Singleton
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import me.rkyb.gprofiler.data.remote.source.SearchService
 import me.rkyb.gprofiler.data.remote.source.UserService
+import me.rkyb.gprofiler.utils.Constants
+import me.rkyb.gprofiler.utils.ResponseHandler
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
-import me.rkyb.gprofiler.data.remote.source.SearchService
-import me.rkyb.gprofiler.utils.Constants
-import me.rkyb.gprofiler.utils.ResponseHandler
+import javax.inject.Singleton
 
 @Module
 @InstallIn(ApplicationComponent::class)

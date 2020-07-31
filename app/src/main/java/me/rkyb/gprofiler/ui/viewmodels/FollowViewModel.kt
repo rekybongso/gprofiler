@@ -20,9 +20,9 @@ class FollowViewModel @ViewModelInject constructor(
     val getFollowData = username.switchMap { user ->
         liveData(Dispatchers.IO){
             if (type == FOLLOWERS){
-                emit(repo.geUserFollowers(user))
+                emit(repo.getFollowData(user, true))
             } else {
-                emit(repo.geUserFollowing(user))
+                emit(repo.getFollowData(user, false))
             }
         }
 

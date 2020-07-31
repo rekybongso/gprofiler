@@ -1,8 +1,10 @@
 package me.rkyb.gprofiler.ui.main
 
 import android.os.Bundle
-import androidx.core.view.GravityCompat
-import androidx.navigation.ui.*
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import me.rkyb.gprofiler.R
 import me.rkyb.gprofiler.databinding.ActivityMainBinding
@@ -27,7 +29,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         appBarConfiguration = AppBarConfiguration.Builder(
             R.id.nav_search, R.id.nav_settings,
-            R.id.nav_about, R.id.nav_profile)
+            R.id.nav_about, R.id.nav_profile
+        )
             .setOpenableLayout(drawerLayout) //setDrawerLayout has been deprecated
             .build()
 

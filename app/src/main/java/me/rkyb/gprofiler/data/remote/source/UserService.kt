@@ -1,9 +1,9 @@
 package me.rkyb.gprofiler.data.remote.source
 
+import me.rkyb.gprofiler.data.remote.response.ItemsResponse
+import me.rkyb.gprofiler.data.remote.response.UserProfileResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
-import me.rkyb.gprofiler.data.remote.response.UserProfileResponse
-import me.rkyb.gprofiler.data.remote.response.ItemsResponse
 
 interface UserService {
 

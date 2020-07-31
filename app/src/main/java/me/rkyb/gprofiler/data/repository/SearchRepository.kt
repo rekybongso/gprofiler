@@ -4,7 +4,6 @@ import me.rkyb.gprofiler.data.remote.response.UserSearchResponse
 import me.rkyb.gprofiler.data.remote.source.SearchService
 import me.rkyb.gprofiler.utils.Resource
 import me.rkyb.gprofiler.utils.ResponseHandler
-import java.lang.Exception
 import javax.inject.Inject
 import javax.inject.Singleton
 

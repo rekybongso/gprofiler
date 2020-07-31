@@ -10,22 +10,16 @@ class FollowRepository @Inject constructor(
     private val service: UserService,
     private val responseHandler: ResponseHandler) {
 
-    suspend fun geUserFollowing(username: String): Resource<MutableList<ItemsResponse>> {
-        return try {
-            val response = service.getUserFollowing(username)
-            return responseHandler.handleSuccess(response)
-        } catch (e: Exception) {
-            responseHandler.handleException(e)
-        }
-    }
+    suspend fun getFollowData(username: String, isItFollowers: Boolean)
+            : Resource<MutableList<ItemsResponse>> {
 
-    suspend fun geUserFollowers(username: String): Resource<MutableList<ItemsResponse>> {
         return try {
-            val response = service.getUserFollowers(username)
-            return responseHandler.handleSuccess(response)
-        } catch (e: Exception) {
-            responseHandler.handleException(e)
-        }
+                if (isItFollowers) {
+                    responseHandler.handleSuccess(service.getUserFollowers(username))
+                } else {
+                    responseHandler.handleSuccess(service.getUserFollowing(username))
+                }
+            } catch (e: Exception) { responseHandler.handleException(e) }
     }
 
 }
