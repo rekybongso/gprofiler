@@ -1,10 +1,7 @@
 package me.rkyb.gprofiler.ui.viewmodels
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import androidx.lifecycle.switchMap
+import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import me.rkyb.gprofiler.data.repository.SearchRepository
 import me.rkyb.gprofiler.utils.Resource
@@ -14,9 +11,10 @@ class SearchViewModel @ViewModelInject constructor (
     : ViewModel() {
 
     private val username = MutableLiveData<String>()
+    private val ioScope = viewModelScope.coroutineContext + Dispatchers.IO
 
     var dataFetched = username.switchMap { users ->
-        liveData(Dispatchers.IO) {
+        liveData(context = ioScope) {
             emit(Resource.loading(null))
             emit(repo.searchUsers(users))
         }

@@ -4,6 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import me.rkyb.gprofiler.data.remote.response.UserProfileResponse
 import me.rkyb.gprofiler.data.repository.ProfileRepository
@@ -16,7 +17,7 @@ class ProfileViewModel @ViewModelInject constructor (
     val usersFetched = MutableLiveData<Resource<UserProfileResponse>>()
 
     fun getUserData(username: String) {
-         viewModelScope.launch {
+         viewModelScope.launch(Dispatchers.IO) {
              usersFetched.postValue(repo.geUserDetail(username))
          }
     }
